@@ -67,3 +67,35 @@ public extension REESwift {
     }
     
 }
+
+@available(iOS 15.0, *)
+@available(tvOS 15.0, *)
+@available(watchOS 8.0, *)
+@available(macOS 12, *)
+public extension REESwift {
+    
+    func consumerPrices(startDate: Date, endDate: Date, geo: GEO) async throws -> [PrecioLuzValue] {
+        return try await prices(id: "1001", startDate: startDate, endDate: endDate, geo: geo)
+    }
+    
+    func consumerPrices(date: Date, geo: GEO) async throws -> [PrecioLuzValue] {
+        return try await prices(id: "1001", startDate: date.start, endDate: date.end, geo: geo)
+    }
+    
+    func spotPrices(startDate: Date, endDate: Date) async throws -> [PrecioLuzValue] {
+        return try await prices(id: "600", startDate: startDate, endDate: endDate, geo: nil)
+    }
+    
+    func spotPrices(date: Date) async throws -> [PrecioLuzValue] {
+        return try await prices(id: "600", startDate: date.start, endDate: date.end, geo: nil)
+    }
+    
+    private func prices(id: String, startDate: Date, endDate: Date, geo: GEO?) async throws -> [PrecioLuzValue] {
+        let endpoint = Endpoint.prices(startDate: startDate, endDate: endDate, geo: geo)
+        let apiResponse: APIResponse = try await Network.shared.request(endpoint)
+        let prices = apiResponse.included.first { $0.id == id }
+        guard let values = prices?.attributes?.values, !values.isEmpty else { throw URLError(.badServerResponse) }
+        return values
+    }
+    
+}

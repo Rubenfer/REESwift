@@ -33,6 +33,8 @@ func consumerPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escap
 func consumerPrices(date: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
 func consumerPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
 func consumerPrices(date: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
+func consumerPrices(startDate: Date, endDate: Date, geo: GEO) async throws -> [PrecioLuzValue]
+func consumerPrices(date: Date, geo: GEO) async throws -> [PrecioLuzValue]
 ```
 
 ### Obtener precios mercado spot
@@ -42,6 +44,8 @@ func spotPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escaping 
 func spotPrices(date: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
 func spotPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
 func spotPrices(date: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
+func spotPrices(startDate: Date, endDate: Date) async throws -> [PrecioLuzValue]
+func spotPrices(date: Date) async throws -> [PrecioLuzValue]
 ```
 
 ## Licencia de uso y contribución con el proyecto

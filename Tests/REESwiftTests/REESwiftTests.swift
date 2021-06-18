@@ -8,6 +8,53 @@ final class REESwiftTests: XCTestCase {
     
     // MARK: - Test consumer prices
     
+    @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
+    @available(watchOS 8.0, *)
+    @available(macOS 12, *)
+    func testConsumerPricesAsync() async {
+        
+        let now = Date.now
+        
+        let todayPrices = try? await ree.consumerPrices(date: now, geo: .peninsula)
+        XCTAssertNotNil(todayPrices)
+        XCTAssert(todayPrices?.count == 24)
+        
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
+        let otherPrices = try? await ree.consumerPrices(startDate: yesterday.start, endDate: now.end, geo: .peninsula)
+        XCTAssertNotNil(otherPrices)
+        XCTAssert(otherPrices?.count == 48)
+        
+        let futureDate = Calendar.current.date(byAdding: .month, value: 1, to: now)!
+        let futurePrices = try? await ree.consumerPrices(date: futureDate, geo: .peninsula)
+        XCTAssertNil(futurePrices)
+        
+    }
+    
+    @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
+    @available(watchOS 8.0, *)
+    @available(macOS 12, *)
+    func testConsumerPricesAsyncOtherGEOs() async {
+        
+        let now = Date.now
+        
+        let peninsulaPrices = try? await ree.consumerPrices(date: now, geo: .peninsula)
+        let ceutaPrices = try? await ree.consumerPrices(date: now, geo: .ceuta)
+        XCTAssertNotNil(peninsulaPrices)
+        XCTAssertNotNil(ceutaPrices)
+        XCTAssert(peninsulaPrices?.count == ceutaPrices?.count)
+        var priceEquals = true
+        for i in 0..<peninsulaPrices!.count {
+            if peninsulaPrices![i].value != ceutaPrices![i].value {
+                priceEquals = false
+                break
+            }
+        }
+        XCTAssertFalse(priceEquals)
+        
+    }
+    
     func testConsumerPricesCombine() {
         
         let now = Date()
@@ -84,6 +131,29 @@ final class REESwiftTests: XCTestCase {
     }
     
     // MARK: - Test spot prices
+    
+    @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
+    @available(watchOS 8.0, *)
+    @available(macOS 12, *)
+    func testSpotPricesAsync() async {
+        
+        let now = Date.now
+        
+        let todayPrices = try? await ree.spotPrices(date: now)
+        XCTAssertNotNil(todayPrices)
+        XCTAssert(todayPrices?.count == 24)
+        
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
+        let otherPrices = try? await ree.spotPrices(startDate: yesterday.start, endDate: now.end)
+        XCTAssertNotNil(otherPrices)
+        XCTAssert(otherPrices?.count == 48)
+        
+        let futureDate = Calendar.current.date(byAdding: .month, value: 1, to: now)!
+        let futurePrices = try? await ree.spotPrices(date: futureDate)
+        XCTAssertNil(futurePrices)
+        
+    }
     
     func testSpotPricesCombine() {
         
