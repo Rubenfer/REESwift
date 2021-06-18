@@ -29,19 +29,19 @@ import REESwift
 ### Obtener precios consumidor
 
 ```swift
-func consumerPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
-func consumerPrices(date: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
-func consumerPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
-func consumerPrices(date: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
+func consumerPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escaping (Result<[Value], Error>) -> Void)
+func consumerPrices(date: Date, geo: GEO, completion: @escaping (Result<[Value], Error>) -> Void)
+func consumerPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[Value], Error>
+func consumerPrices(date: Date, geo: GEO) -> AnyPublisher<[Value], Error>
 ```
 
 ### Obtener precios mercado spot
 
 ```swift
-func spotPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
-func spotPrices(date: Date, geo: GEO, completion: @escaping (Result<[PrecioLuzValue], Error>) -> Void)
-func spotPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
-func spotPrices(date: Date, geo: GEO) -> AnyPublisher<[PrecioLuzValue], Error>
+func spotPrices(startDate: Date, endDate: Date, geo: GEO, completion: @escaping (Result<[Value], Error>) -> Void)
+func spotPrices(date: Date, geo: GEO, completion: @escaping (Result<[Value], Error>) -> Void)
+func spotPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[Value], Error>
+func spotPrices(date: Date, geo: GEO) -> AnyPublisher<[Value], Error>
 ```
 
 ## Licencia de uso y contribución con el proyecto
