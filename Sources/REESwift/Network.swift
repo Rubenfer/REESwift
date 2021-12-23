@@ -17,6 +17,13 @@ class Network {
         }
     }
     
+    func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
+        let (data, response) = try await URLSession.shared.data(from: endpoint.url)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+        let decodedData = try decoder.decode(T.self, from: data)
+        return decodedData
+    }
+    
     func request<T: Decodable>(_ endpoint: Endpoint) -> AnyPublisher<T, Error> {
         URLSession.shared
             .dataTaskPublisher(for: endpoint.url)
