@@ -17,10 +17,6 @@ class Network {
         }
     }
     
-    @available(iOS 15.0, *)
-    @available(tvOS 15.0, *)
-    @available(watchOS 8.0, *)
-    @available(macOS 12, *)
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: endpoint.url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }

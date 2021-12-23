@@ -8,13 +8,9 @@ final class REESwiftTests: XCTestCase {
     
     // MARK: - Test consumer prices
     
-    @available(iOS 15.0, *)
-    @available(tvOS 15.0, *)
-    @available(watchOS 8.0, *)
-    @available(macOS 12, *)
     func testConsumerPricesAsync() async {
         
-        let now = Date.now
+        let now = Date()
         
         let todayPrices = try? await ree.consumerPrices(date: now, geo: .peninsula)
         XCTAssertNotNil(todayPrices)
@@ -31,13 +27,9 @@ final class REESwiftTests: XCTestCase {
         
     }
     
-    @available(iOS 15.0, *)
-    @available(tvOS 15.0, *)
-    @available(watchOS 8.0, *)
-    @available(macOS 12, *)
     func testConsumerPricesAsyncOtherGEOs() async {
         
-        let now = Date.now
+        let now = Date()
         
         let peninsulaPrices = try? await ree.consumerPrices(date: now, geo: .peninsula)
         let ceutaPrices = try? await ree.consumerPrices(date: now, geo: .ceuta)
@@ -132,13 +124,9 @@ final class REESwiftTests: XCTestCase {
     
     // MARK: - Test spot prices
     
-    @available(iOS 15.0, *)
-    @available(tvOS 15.0, *)
-    @available(watchOS 8.0, *)
-    @available(macOS 12, *)
     func testSpotPricesAsync() async {
         
-        let now = Date.now
+        let now = Date()
         
         let todayPrices = try? await ree.spotPrices(date: now)
         XCTAssertNotNil(todayPrices)

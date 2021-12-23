@@ -17,28 +17,12 @@ public extension REESwift {
         prices(id: "1001", startDate: date.start, endDate: date.end, geo: geo, completion: completion)
     }
     
-    func consumerPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[Value], Error> {
-        return prices(id: "1001", startDate: startDate, endDate: endDate, geo: geo)
-    }
-    
-    func consumerPrices(date: Date, geo: GEO) -> AnyPublisher<[Value], Error> {
-        return prices(id: "1001", startDate: date.start, endDate: date.end, geo: geo)
-    }
-    
     func spotPrices(startDate: Date, endDate: Date, completion: @escaping (Result<[Value], Error>) -> Void) {
         prices(id: "600", startDate: startDate, endDate: endDate, geo: nil, completion: completion)
     }
     
     func spotPrices(date: Date, completion: @escaping (Result<[Value], Error>) -> Void) {
         prices(id: "600", startDate: date.start, endDate: date.end, geo: nil, completion: completion)
-    }
-    
-    func spotPrices(startDate: Date, endDate: Date) -> AnyPublisher<[Value], Error> {
-        return prices(id: "600", startDate: startDate, endDate: endDate, geo: nil)
-    }
-    
-    func spotPrices(date: Date) -> AnyPublisher<[Value], Error> {
-        return prices(id: "600", startDate: date.start, endDate: date.end, geo: nil)
     }
     
     private func prices(id: String, startDate: Date, endDate: Date, geo: GEO?, completion: @escaping (Result<[Value], Error>) -> Void) {
@@ -55,6 +39,26 @@ public extension REESwift {
         }
     }
     
+}
+
+public extension REESwift {
+    
+    func consumerPrices(startDate: Date, endDate: Date, geo: GEO) -> AnyPublisher<[Value], Error> {
+        return prices(id: "1001", startDate: startDate, endDate: endDate, geo: geo)
+    }
+    
+    func consumerPrices(date: Date, geo: GEO) -> AnyPublisher<[Value], Error> {
+        return prices(id: "1001", startDate: date.start, endDate: date.end, geo: geo)
+    }
+    
+    func spotPrices(startDate: Date, endDate: Date) -> AnyPublisher<[Value], Error> {
+        return prices(id: "600", startDate: startDate, endDate: endDate, geo: nil)
+    }
+    
+    func spotPrices(date: Date) -> AnyPublisher<[Value], Error> {
+        return prices(id: "600", startDate: date.start, endDate: date.end, geo: nil)
+    }
+    
     private func prices(id: String, startDate: Date, endDate: Date, geo: GEO?) -> AnyPublisher<[Value], Error> {
         let endpoint = Endpoint.prices(startDate: startDate, endDate: endDate, geo: geo)
         return Network.shared.request(endpoint)
@@ -68,10 +72,6 @@ public extension REESwift {
     
 }
 
-@available(iOS 15.0, *)
-@available(tvOS 15.0, *)
-@available(watchOS 8.0, *)
-@available(macOS 12, *)
 public extension REESwift {
     
     func consumerPrices(startDate: Date, endDate: Date, geo: GEO) async throws -> [Value] {
