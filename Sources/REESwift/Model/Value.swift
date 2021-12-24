@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Value {
+public protocol Value: Codable {
     var datetime: Date { get }
     var value: Float { get }
 }

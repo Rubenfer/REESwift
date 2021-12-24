@@ -1,23 +1,23 @@
 import Foundation
 
-struct APIResponse: Decodable {
+struct APIResponse: Codable {
     let data: Data
     let included: [Included]
     
-    struct Data: Decodable {
+    struct Data: Codable {
         let type: String?
         let id: String?
         let attributes: Attributes?
     }
     
-    struct Included: Decodable {
+    struct Included: Codable {
         let type: String?
         let id: String?
         let groupId: String?
         let attributes: Attributes?
     }
     
-    struct Attributes: Decodable {
+    struct Attributes: Codable {
         let title: String?
         let lastUpdate: Date?
         let description: String?
@@ -38,7 +38,7 @@ struct APIResponse: Decodable {
             case values
         }
         
-        struct Value: Decodable {
+        struct Value: Codable {
             let value: Float
             let percentage: Float?
             let datetime: Date
